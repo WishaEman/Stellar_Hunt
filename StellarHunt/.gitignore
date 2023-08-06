@@ -1,0 +1,27 @@
+# Ignore compiled files
+*.class
+*.pyc
+.DS_Store
+
+
+# Ignore IDE-specific files and folders
+.vscode/
+.idea/
+
+# Ignore logs and cache files
+logs/
+cache/
+__pycache__/
+authentication/__pycache__/
+
+
+
+# Ignore sensitive configuration files
+config.ini
+secrets.yml
+
+# Ignore dependencies installed by package managers
+node_modules/
+venv/
+env/
+db.sqlite3
