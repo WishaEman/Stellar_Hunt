@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from django.contrib.auth import authenticate
 from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
+from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST, HTTP_201_CREATED
 
 
 class LoginView(APIView):
@@ -34,11 +34,33 @@ class LoginView(APIView):
 
 
 class SignupView(CreateAPIView):
+    """
+            This view provides a post request to create a user.
+    """
     serializer_class = UserSerializer
     permission_classes = [AllowAny]
 
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.save()
+
+        if user:
+            token = Token.objects.get_or_create(user=user)[0]
+            return Response({
+                'status': HTTP_201_CREATED,
+                'token': token.key,
+            })
+        return Response({
+            'status': HTTP_400_BAD_REQUEST,
+            'message': 'Invalid Credentials'
+        })
+
 
 class LogoutView(APIView):
+    """
+            This view provides a get request to logout a user.
+    """
     permission_classes = [IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
@@ -46,22 +68,3 @@ class LogoutView(APIView):
             'status': HTTP_200_OK,
             'message': 'Successfully Logged out User'
         })
-
-
-class CheckUsernameEmailView(APIView):
-    def post(self, request, *args, **kwargs):
-        username = request.data.get('username')
-        email = request.data.get('email')
-
-        if not username or not email:
-            return Response({'error': 'Username and email are required.'}, status=HTTP_400_BAD_REQUEST)
-
-        username_exists = User.objects.filter(username=username).exists()
-        email_exists = User.objects.filter(email=email).exists()
-
-        response_data = {
-            'username_taken': username_exists,
-            'email_taken': email_exists,
-        }
-
-        return Response(response_data, status=HTTP_200_OK)

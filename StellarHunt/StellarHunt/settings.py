@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+from PIL import Image
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -41,6 +43,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'authentication',
+    'inventory_management',
 ]
 
 AUTH_USER_MODEL = 'authentication.User'
@@ -124,6 +127,11 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+# Media settings
+MEDIA_URL = 'media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -142,6 +150,10 @@ CORS_ALLOWED_ORIGINS = [
     "http://192.168.100.128:3000"
 ]
 
+CORS_ALLOW_METHODS = ['GET', 'POST', 'PUT', 'DELETE']
+CORS_ALLOW_HEADERS = ['Content-Type', 'Authorization']
+
 CSRF_COOKIE_NAME = "csrftoken"
 CSRF_HEADER_NAME = "X-CSRFToken"
 CSRF_COOKIE_SECURE = True
+
