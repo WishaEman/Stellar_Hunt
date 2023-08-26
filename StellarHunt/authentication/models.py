@@ -1,5 +1,5 @@
-from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.db import models
 
 GENDER_CHOICES = (
     ('male', 'Male'),
@@ -9,6 +9,7 @@ GENDER_CHOICES = (
 
 
 class User(AbstractUser):
+    """ Custom User model inheriting from AbstractUser  """
     full_name = models.CharField(
         max_length=255,
         blank=False,
