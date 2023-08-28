@@ -22,7 +22,7 @@ class Category(models.Model):
 
 
 class Subcategory(models.Model):
-    """ A model representing a Subcategory related to Category """
+    """ A model representing a Subcategory related to Category  """
 
     category = models.ForeignKey(
         Category,
@@ -48,7 +48,7 @@ class Subcategory(models.Model):
 
 
 class Product(models.Model):
-    """ A model representing a product related to Subcategory """
+    """ A model representing a product related to Subcategory   """
 
     subcategory = models.ForeignKey(
         Subcategory,

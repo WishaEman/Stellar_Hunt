@@ -1,17 +1,17 @@
-from rest_framework.views import APIView
-from rest_framework.authtoken.models import Token
-from .serializers import *
-from rest_framework.response import Response
 from django.contrib.auth import authenticate
+from rest_framework.authtoken.models import Token
 from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST, HTTP_201_CREATED
+from rest_framework.response import Response
+from rest_framework.status import (HTTP_200_OK, HTTP_201_CREATED,
+                                   HTTP_400_BAD_REQUEST)
+from rest_framework.views import APIView
+
+from .serializers import LogInSerializer, UserSerializer
 
 
 class LoginView(APIView):
-    """
-        This view provides a post request to login a user.
-    """
+    """ This view provides a post request to login a user. """
     serializer_class = LogInSerializer
     permission_classes = [AllowAny]
 
@@ -34,9 +34,7 @@ class LoginView(APIView):
 
 
 class SignupView(CreateAPIView):
-    """
-            This view provides a post request to create a user.
-    """
+    """ This view provides a post request to create a user. """
     serializer_class = UserSerializer
     permission_classes = [AllowAny]
 
@@ -58,12 +56,13 @@ class SignupView(CreateAPIView):
 
 
 class LogoutView(APIView):
-    """
-            This view provides a get request to logout a user.
-    """
+    """ This view provides a get request to logout a user.  """
     permission_classes = [IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
+        token, _ = Token.objects.get_or_create(user=request.user)
+        token.delete()
+
         return Response({
             'status': HTTP_200_OK,
             'message': 'Successfully Logged out User'

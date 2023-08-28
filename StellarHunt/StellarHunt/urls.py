@@ -23,5 +23,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/auth/', include('authentication.urls', namespace='authentication_api')),
     path('inventory-management/', include('inventory_management.urls', namespace='inventory_management')),
+    path('cart-handler/', include('cart_handler.urls', namespace='cart_handler')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
