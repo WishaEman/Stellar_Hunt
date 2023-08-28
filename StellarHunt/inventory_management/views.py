@@ -8,7 +8,7 @@ from .serializers import (Category, CategorySerializer, Product,
 
 
 class CategoryListView(generics.ListAPIView):
-    """ API view to list categories with AllowAny permission.   """
+    """ API view to list categories with AllowAny permission. """
 
     queryset = Category.objects.all().order_by('id')
     serializer_class = CategorySerializer
@@ -16,7 +16,7 @@ class CategoryListView(generics.ListAPIView):
 
 
 class SubcategoryListView(generics.ListAPIView):
-    """ API view to list subcategories within a category.   """
+    """ API view to list subcategories within a category. """
 
     serializer_class = SubcategorySerializer
 
@@ -25,16 +25,9 @@ class SubcategoryListView(generics.ListAPIView):
         return Subcategory.objects.filter(category_id=category_id)
 
 
-class CategoryRetrieveView(generics.ListAPIView):
-    """ API view to retrieve individual categories with AllowAny permission. """
-
-    queryset = Category.objects.all()
-    serializer_class = CategorySerializer
-    permission_classes = [AllowAny]
-
-
 class ProductListView(generics.ListAPIView):
     """ API view to list products with AllowAny permission. """
+
     queryset = Product.objects.all().order_by('subcategory_id')
     serializer_class = ProductSerializer
     permission_classes = [AllowAny]
@@ -49,7 +42,7 @@ class LatestProducts(generics.ListAPIView):
 
 
 class CategoryProductsAPIView(generics.ListAPIView):
-    """ API view to list products within a subcategory using pagination.  """
+    """ API view to list products within a subcategory using pagination. """
 
     serializer_class = ProductSerializer
     permission_classes = [AllowAny]
