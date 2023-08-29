@@ -1,13 +1,12 @@
 from django.urls import path
 
 from .views import (CategoryListView, CategoryProductsAPIView,
-                    CategoryRetrieveView, ProductListView, LatestProducts, SubcategoryListView)
+                    ProductListView, LatestProducts, SubcategoryListView)
 
 app_name = 'inventory_management'
 
 urlpatterns = [
     path('categories/', CategoryListView.as_view(), name='category-list'),
-    path('categories/<int:pk>/', CategoryRetrieveView.as_view(), name='category'),
     path('subcategories/<int:category_id>/', SubcategoryListView.as_view(), name='subcategory-list'),
     path('products/', ProductListView.as_view(), name='product-list'),
     path('latest-products/', LatestProducts.as_view(), name='latest-product'),

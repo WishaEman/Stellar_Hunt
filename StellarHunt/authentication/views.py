@@ -3,8 +3,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.status import (HTTP_200_OK, HTTP_201_CREATED,
-                                   HTTP_400_BAD_REQUEST)
+from rest_framework.status import (HTTP_200_OK, HTTP_400_BAD_REQUEST)
 from rest_framework.views import APIView
 
 from .serializers import LogInSerializer, UserSerializer
@@ -12,6 +11,7 @@ from .serializers import LogInSerializer, UserSerializer
 
 class LoginView(APIView):
     """ This view provides a post request to login a user. """
+
     serializer_class = LogInSerializer
     permission_classes = [AllowAny]
 
@@ -29,12 +29,13 @@ class LoginView(APIView):
             })
         return Response({
             'status': HTTP_400_BAD_REQUEST,
-            'message': 'Invalid Credentials'
+            'message': 'Invalid Credentials',
         })
 
 
 class SignupView(CreateAPIView):
     """ This view provides a post request to create a user. """
+
     serializer_class = UserSerializer
     permission_classes = [AllowAny]
 
@@ -46,7 +47,7 @@ class SignupView(CreateAPIView):
         if user:
             token = Token.objects.get_or_create(user=user)[0]
             return Response({
-                'status': HTTP_201_CREATED,
+                'status': HTTP_200_OK,
                 'token': token.key,
             })
         return Response({
@@ -57,13 +58,18 @@ class SignupView(CreateAPIView):
 
 class LogoutView(APIView):
     """ This view provides a get request to logout a user.  """
+
     permission_classes = [IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
         token, _ = Token.objects.get_or_create(user=request.user)
-        token.delete()
-
+        if token:
+            token.delete()
+            return Response({
+                'status': HTTP_200_OK,
+                'message': 'Successfully Logged out User'
+            })
         return Response({
-            'status': HTTP_200_OK,
-            'message': 'Successfully Logged out User'
+            'status': HTTP_400_BAD_REQUEST,
+            'message': 'ERROR While Logging Out'
         })

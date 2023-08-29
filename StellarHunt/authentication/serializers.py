@@ -19,11 +19,6 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = '__all__'
 
-    def create(self, validated_data):
-        user = User.objects.create_user(**validated_data)
-        user.save()
-        return user
-
 
 class LogInSerializer(serializers.Serializer):
     """ Serializer for user login   """
