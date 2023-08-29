@@ -36,7 +36,7 @@ class ProductListView(generics.ListAPIView):
 class LatestProducts(generics.ListAPIView):
     """  API view to list the latest products with AllowAny permission. """
 
-    queryset = Product.objects.order_by('created_at')[:9]
+    queryset = Product.objects.order_by('subcategory_id')[:9]
     serializer_class = ProductSerializer
     permission_classes = [AllowAny]
 
