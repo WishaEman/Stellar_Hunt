@@ -16,25 +16,25 @@ cart handling, and the checkout process.
 * Admin User
 * Contributing
 
-**Project Overview**
+**Project Overview** :
 Stellar Hunt is a flower shop backend built using Django and the Django Rest Framework. It serves as the backbone for the Stellar Hunt Flower Shop website. Here's an overview of the key features and components:
 
-**Authentication**
+**Authentication**:
 The project includes an authentication app with token-based authentication. Users can create accounts, log in, and access personalized features such as order history and saved addresses.
 
-**Inventory Management**
+**Inventory Management**:
 The inventory_management app manages flower categories, subcategories, and products. It provides APIs for adding, updating, and retrieving product information.
 
-**Cart Handling**
+**Cart Handling**:
 The cart_handler app handles the shopping cart functionality. Users can add products to their cart, adjust quantities, and remove items as needed.
 
-**Checkout Process**
+**Checkout Process**:
 The project supports a seamless checkout process where users can provide shipping information and payment details to complete their flower purchases.
 
-**Admin User**
+**Admin User**:
 To get started with administrative tasks, the first admin user needs to be created. This user can access the Django admin panel to manage products, categories, users, and other backend functionalities.
 
-**Installation**
+**Installation**:
 To set up the Stellar Hunt Flower Shop Backend on your local machine, follow these steps:
 
 1. Clone the repository to your local machine:
@@ -85,7 +85,7 @@ To set up the Stellar Hunt Flower Shop Backend on your local machine, follow the
    
 You can now access the API endpoints and the Django admin panel.
 
-**Contributing**
+**Contributing**:
 If you'd like to contribute, please follow these guidelines:
 
 1. Fork the repository and create a new branch for your feature or bug fix.
